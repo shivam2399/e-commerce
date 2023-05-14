@@ -1,7 +1,23 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Card, Button } from 'react-bootstrap';
+import CartContext from '../Store/cart-context';
 
 function Product({ product, index }) {
+  const cartContext = useContext(CartContext);
+
+  const addItemToCart = (event) => {
+    event.preventDefault();
+    const quantity = 1;
+    cartContext.addItem({ 
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      imageUrl: product.imageUrl,
+      quantity: quantity
+     });
+    console.log(cartContext.items);
+  }
+
   return (
     <div className="product m">
       <Card style={{width: '14rem'}}>
@@ -10,7 +26,7 @@ function Product({ product, index }) {
           <Card.Title>Album {index+1}</Card.Title>
           <div className="d-flex justify-content-between align-items-center">
             <p className="m-0">₹{product.price}</p>
-            <Button variant="primary">Add to Cart</Button>
+            <Button onClick={addItemToCart} variant="primary">Add to Cart</Button>
           </div>
         </Card.Body>
       </Card>
