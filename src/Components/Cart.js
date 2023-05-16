@@ -8,30 +8,36 @@ import CartContext from "../Store/cart-context";
 function Cart({ show, onHide }) {
   const cartCtx = useContext(CartContext);
 
+  const addToCartHandler = (item) => {
+    const existingCartItem = cartCtx.items.find((cartItem) => cartItem.id === item.id);
+    if (existingCartItem) {
+      existingCartItem.quantity += 1;
+    } else {
+      cartCtx.items.push({ ...item, quantity: 1 });
+    }
+  };
+
+
   const cartItems = cartCtx.items.map((item) => (
-    <CartItem 
+    <CartItem
       key={item.id}
       item={item}
       id={item.id}
       name={item.name}
       price={item.price}
-      quantity={item.quantity} 
+      quantity={item.quantity}
       imageUrl={item.imageUrl}
+      onAddToCart={addToCartHandler}
     />
   ));
-  
 
-  
-  const calculateTotal = () => {
-    let total = 0;
-    for (let i = 0; i < cartItems.length; i++) {
-      total += Number(cartItems[i].price) * Number(cartItems[i].quantity);
-    }
-    return total;
-  };
+  const totalPrice = cartCtx.items.reduce((totalPrice, item) => {
+    return totalPrice + (parseInt(item.quantity) * item.price);
+  }, 0);
+
 
   const purchaseProducts = () => {
-    alert(`Thanks for the purchase. Your total is ₹${calculateTotal()}`);
+    alert(`Thanks for the purchase. Your total is ₹${totalPrice}`);
   };
 
   return (
@@ -59,7 +65,7 @@ function Cart({ show, onHide }) {
         {cartItems}
         <div className="cart-total">
           <h4 style={{ textAlign: "right" }}>
-            <b>Total: ₹{calculateTotal()}</b>
+            <b>Total: ₹{totalPrice}</b>
           </h4>
         </div>
       </Modal.Body>
