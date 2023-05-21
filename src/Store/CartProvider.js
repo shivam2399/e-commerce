@@ -9,6 +9,7 @@ const CartProvider = props => {
     const addItemToCartHandler = (item) => {
         setItems([...items, item]);
     }
+      
 
     
 

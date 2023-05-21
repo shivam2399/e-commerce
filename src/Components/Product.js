@@ -7,16 +7,17 @@ function Product({ product, index }) {
 
   const addItemToCart = (event) => {
     event.preventDefault();
-    const quantity = 1;
-    cartContext.addItem({ 
-      id: product.id,
-      title: product.title,
-      price: product.price,
-      imageUrl: product.imageUrl,
-      quantity: quantity
+      const quantity = 1;
+      cartContext.addItem({ 
+       id: product.id,
+       title: product.title,
+       price: product.price,
+       imageUrl: product.imageUrl,
+       quantity: quantity
      });
+    }
     console.log(cartContext.items);
-  }
+
 
   return (
     <div className="product m">
