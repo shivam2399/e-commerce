@@ -1,32 +1,60 @@
 import React, { useState, useContext} from "react";
 import { Link } from "react-router-dom";
 import "./About.css";
-import { Container, Navbar, Nav, Button, Row, Col, Image } from "react-bootstrap";
+import { Container, Navbar, Nav, Button, Row, Col, Form } from "react-bootstrap";
 import { FaYoutube, FaInstagram, FaFacebook } from "react-icons/fa";
 import Cart from "./Cart";
 import CartProvider from "../Store/CartProvider";
 import CartContext from "../Store/cart-context";
-import image from '../assets/Damn.png'
 
-const About = () => {
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const cartCtx = useContext(CartContext);
+const ContactUs = () => {
+
+    const [isCartOpen, setIsCartOpen] = useState(false);
+    const cartCtx = useContext(CartContext);
 
 
     let quantity = 0;
     cartCtx.items.forEach((item) => {
         quantity += Number(item.quantity);
     });
-  
 
-  const toggleCart = () => {
-    setIsCartOpen(!isCartOpen);
+    const toggleCart = () => {
+     setIsCartOpen(!isCartOpen);
+    };
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+      const data = {
+        name,
+        email,
+        phone,
+      };
+
+    const response = await fetch('https://e-commerce-app-b3db8-default-rtdb.asia-southeast1.firebasedatabase.app/queries.json', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+
+    if (response.ok) {
+        console.log("Data stored successfully.");
+        setName("");
+        setEmail("");
+        setPhone("");
+      } else {
+        console.log("Failed to store data.");
+      }
   };
 
-  
-
   return (
-    <CartProvider>
+    <>
+     <CartProvider>
       <Navbar bg="dark" expand="sm" variant="dark">
         <Container>
           <Nav className="mx-auto">
@@ -65,44 +93,35 @@ const About = () => {
             fontSize: "30px",
           }}
         >
-        <b>About</b>
+        <b>Contact Us</b>
         </h1>
-        <Row>
-         <Col xs={12} md={6} className="text-center">
-            <div className="image-container">
-                <Image src={image} alt="Album Art" roundedCircle/>
-            </div>
-         </Col>
-         <Col xs={12} md={6}>
-            <p>
-              <b>
-                Lorem ipsum carrots enhanced rebates. Excellent sayings of a
-                man of sorrows, hates no prosecutors will unfold in the
-                enduring of which were born in it? Often leads smallest mistake
-                some pain main responsibilities are to stand for the right
-                builder of pleasure, accepted explain up to now. , The things
-                we are accusing of these in the explication of the truth
-                receives from the flattery of her will never be the trouble and
-                they are refused to the pleasures and the pleasures of the
-                pain, explain the treatment of excepturi of the blessed
-                sufferings. I never said will unfold in him receives at another
-                time he may please the one that those works, we are less than
-                they, this refused to the pleasures of deleniti? Those are! Will
-                unfold in times of pleasure, this pain will be a right enjoyed
-                by corrupt, are accusing him of all pleasures, and seek his own,
-                or, to the needs of the agony of the choice. We hate the fellow.
-                Lorem ipsum dolor, sit amet consectetur rebates. The
-                distinction, that arise from or to. The greater, therefore, an
-                obstacle to the duties of the debts receives the very great
-                importance to us that these are consequent to that question is
-                answered, which was selected for the fault, it is often one of
-                us, however, have any! Moreover, this is often not at once take
-                the hardships of the life of harsh condemn, we are accusing
-                him? Him whom something large cisterns.
-              </b>
-            </p>
-          </Col>
-        </Row> 
+        <Form onSubmit={handleSubmit}>
+      <Form.Group className="mt-3">
+        <Form.Control
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </Form.Group>
+      <Form.Group className="mt-3">
+        <Form.Control
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </Form.Group>
+      <Form.Group className="mt-3">
+        <Form.Control
+          type="tel"
+          placeholder="Phone"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+        />
+      </Form.Group>
+      <Button type="submit" variant="primary" className="mt-3">Submit</Button>
+    </Form>
       </Container>
       {isCartOpen && (
         <Cart
@@ -136,7 +155,8 @@ const About = () => {
         </Container>
       </footer> 
     </CartProvider>
-  );
+    </>
+  )
 }
 
-export default About;
+export default ContactUs

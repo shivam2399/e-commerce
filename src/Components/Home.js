@@ -55,6 +55,7 @@ const Home = () => {
             <Nav.Link ><Link to="/home">Home</Link></Nav.Link>
             <Nav.Link ><Link to="/">Store</Link></Nav.Link>
             <Nav.Link ><Link to="/about">About</Link></Nav.Link>
+            <Nav.Link><Link to="/contactUs">Contact Us</Link></Nav.Link>
           </Nav>
           <Button onClick={toggleCart} variant="outline-primary">
            <div>
