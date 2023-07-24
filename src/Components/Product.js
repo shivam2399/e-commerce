@@ -1,10 +1,10 @@
 import React, {useContext} from 'react';
 import { Card, Button } from 'react-bootstrap';
 import CartContext from '../Store/cart-context';
+import { Link } from 'react-router-dom';
 
-function Product({ product, index }) {
+function Product({ product }) {
   const cartContext = useContext(CartContext);
-
   const addItemToCart = (event) => {
     event.preventDefault();
       const quantity = 1;
@@ -16,7 +16,6 @@ function Product({ product, index }) {
        quantity: quantity
      });
     }
-    console.log(cartContext.items);
 
 
   return (
@@ -24,7 +23,11 @@ function Product({ product, index }) {
       <Card style={{width: '14rem'}}>
         <Card.Img variant="top" src={product.imageUrl}  />
         <Card.Body>
-          <Card.Title>Album {index+1}</Card.Title>
+          <Card.Title>
+            {console.log(product)}
+          <Link to={`/product/${product.id}`}>{product.title}</Link>
+          
+          </Card.Title>
           <div className="d-flex justify-content-between align-items-center">
             <p className="m-0">₹{product.price}</p>
             <Button onClick={addItemToCart} variant="primary">Add to Cart</Button>

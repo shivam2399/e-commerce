@@ -6,9 +6,6 @@ function CartItem({ id, name, price, quantity, imageUrl }) {
   
   const cartCtx = useContext(CartContext);
 
-  const handleQuantityChange = (event) => {
-    cartCtx.updateItem(id, event.target.value);
-  };
 
   const handleRemoveFromCart = () => {
     cartCtx.removeItem(id);
@@ -30,7 +27,6 @@ function CartItem({ id, name, price, quantity, imageUrl }) {
               type="number"
               className="cart-item-quantity"
               value={quantity}
-              onchange={handleQuantityChange}
               style={{width: '40px'}}
             ></input>
             <Button variant="danger" onClick={handleRemoveFromCart}>

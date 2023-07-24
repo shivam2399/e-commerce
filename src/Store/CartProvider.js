@@ -9,9 +9,6 @@ const CartProvider = props => {
     const addItemToCartHandler = (item) => {
         setItems([...items, item]);
     }
-      
-
-    
 
     const removeItemFromCartHandler = id => {
         const itemIndex = items.findIndex(item => item.id === id);
@@ -25,9 +22,6 @@ const CartProvider = props => {
         }
         setItems(newItems);
     }
-
-
-    
 
     const cartContext = {
         items: items,
