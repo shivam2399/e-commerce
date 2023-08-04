@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Container, Navbar, Nav, Button, Row, Col } from "react-bootstrap";
 import { FaYoutube, FaInstagram, FaFacebook } from "react-icons/fa";
@@ -13,12 +13,13 @@ const Store = () => {
   const cartCtx = useContext(CartContext);
 
 
-    let quantity = 0;
-    cartCtx.items.forEach((item) => {
-        quantity += Number(item.quantity);
-    });
+  const quantity = 0;
+  useEffect(() => {
+    cartCtx.items.forEach(item => {
+      quantity += Number(cartCtx.items)
+    })
+  }, [cartCtx.items])
   
-
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
   };
@@ -34,6 +35,7 @@ const Store = () => {
             <Nav.Link ><Link to="/">Store</Link></Nav.Link>
             <Nav.Link ><Link to="/about">About</Link></Nav.Link>
             <Nav.Link><Link to="/contactUs">Contact Us</Link></Nav.Link>
+            <Nav.Link><Link to="/login">Login</Link></Nav.Link>
           </Nav>
           <Button onClick={toggleCart} variant="outline-primary">
            <div>

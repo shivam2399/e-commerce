@@ -5,6 +5,7 @@ import About from './Components/About';
 import ContactUs from './Components/ContactUs';
 import Store from './Components/Store';
 import ProductDetail from './Components/ProductDetail';
+import Login from './Components/Login';
 
 const productsArr = [
   {
@@ -39,7 +40,8 @@ const router = createBrowserRouter([
   {path: '/about', element: <About />},
   {path: '/home', element: <Home />},
   {path: '/contactUs', element: <ContactUs />},
-  {path: '/product/:id', element: <ProductDetail productsArr={productsArr} />}
+  {path: '/product/:id', element: <ProductDetail productsArr={productsArr} />},
+  {path: '/login', element: <Login />}
 ])
 
 const App = () => {

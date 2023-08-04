@@ -46,6 +46,7 @@ function Cart({ show, onHide }) {
         <Modal.Title style={{ fontFamily: "Badaboom", fontSize: "40px" }}>
           Cart
         </Modal.Title>
+        {console.log(cartCtx.items.length)}
       </Modal.Header>
       <Modal.Body>
         <div className="cart-header d-flex justify-content-between">

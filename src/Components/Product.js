@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 function Product({ product }) {
   const cartContext = useContext(CartContext);
+
   const addItemToCart = (event) => {
     event.preventDefault();
       const quantity = 1;
@@ -24,7 +25,6 @@ function Product({ product }) {
         <Card.Img variant="top" src={product.imageUrl}  />
         <Card.Body>
           <Card.Title>
-            {console.log(product)}
           <Link to={`/product/${product.id}`}>{product.title}</Link>
           
           </Card.Title>
